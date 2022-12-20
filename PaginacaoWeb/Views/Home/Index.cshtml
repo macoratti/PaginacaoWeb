@@ -1,0 +1,33 @@
+﻿@model PaginacaoWeb.Paginacao.PagedResult<Product>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>Unit Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 1;
+        }
+        @foreach (var product in Model.Results)
+        {
+            var rowNo = (Model.CurrentPage - 1) * Model.PageSize + i;
+            i++;
+            <tr>
+                <td>@rowNo</td>
+                <td>@product.ProductID</td>
+                <td>@product.ProductName</td>
+                <td>@product.UnitPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@for (var p = 1; p <= Model.PageCount; p++)
+{
+    <a href="@Url.Action("Index", new { page = p })" class="btn btn-default">@p</a>
+}
